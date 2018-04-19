@@ -3,7 +3,11 @@
         <el-header>Header</el-header>
         <el-container>
             <el-aside width="200px">Aside</el-aside>
-            <el-main>Main</el-main>
+            <el-main>
+                <span v-for="item in data">
+                    {{item.name}}--{{item.email}}<br />
+                </span>
+            </el-main>
         </el-container>
     </el-container>
 </template>
@@ -12,15 +16,18 @@
     export default {
         name:'home',
         data(){
-            return{}
+            return{
+                data:[]
+            }
         },
         mounted() {
-            console.log('Component mounted.')
+            console.log('Component mounted.');
+            this.init();
         },
         methods:{
             init(){
-                this.axios('/api/home/user').then((res)=>{
-                    debugger
+                axios('/api/user/userlist').then((res)=>{
+                    this.data = res.data.data;
                 })
             }
         }

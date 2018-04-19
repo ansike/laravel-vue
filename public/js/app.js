@@ -50513,20 +50513,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'home',
     data: function data() {
-        return {};
+        return {
+            data: []
+        };
     },
     mounted: function mounted() {
         console.log('Component mounted.');
+        this.init();
     },
 
     methods: {
         init: function init() {
-            this.axios('/api/home/user').then(function (res) {
-                debugger;
+            var _this = this;
+
+            axios('/api/user/userlist').then(function (res) {
+                _this.data = res.data.data;
             });
         }
     }
@@ -50550,7 +50559,20 @@ var render = function() {
         [
           _c("el-aside", { attrs: { width: "200px" } }, [_vm._v("Aside")]),
           _vm._v(" "),
-          _c("el-main", [_vm._v("Main")])
+          _c(
+            "el-main",
+            _vm._l(_vm.data, function(item) {
+              return _c("span", [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(item.name) +
+                    "--" +
+                    _vm._s(item.email)
+                ),
+                _c("br")
+              ])
+            })
+          )
         ],
         1
       )
