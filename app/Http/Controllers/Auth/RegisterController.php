@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Mail;
+use Naux\Mail\SendCloudTemplate;
+
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -63,10 +66,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+        var_dump($data);
+        $User = User::create([
+            'name'      => $data['name'],
+            'email'     => $data['email'],
+            'password'  => Hash::make($data['password']),
+            'avatar'    => '/images/avatars/default.png',
+            'comfirmation_token' => str_random(40),
         ]);
+        $this -> sendVerifyEmailTo($User);
+        return $User;
+    }
+
+    private function sendVerifyEmailTo($User){
+        // 模板变量
+        $bind_data = ['url' => route('email.verify',['token' => $User->comfirmation_token]),
+                      'name' => $User->name
+            ];
+        $template = new SendCloudTemplate('test_template_active', $bind_data);
+
+        Mail::raw($template, function ($message) use ($User) {
+            $message->from('984315765@qq.com', 'ansike');
+            $message->to($User->email);
+        });
     }
 }

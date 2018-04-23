@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'PRC',
 
     /*
     |--------------------------------------------------------------------------
@@ -150,6 +150,8 @@ return [
         /*
          * Package Service Providers...
          */
+
+        Naux\Mail\SendCloudServiceProvider::class,
 
         /*
          * Application Service Providers...
