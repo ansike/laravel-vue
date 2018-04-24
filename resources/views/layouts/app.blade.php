@@ -16,7 +16,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -66,10 +66,13 @@
                 </div>
             </div>
         </nav>
-
+        @include('flash::message')
         <main class="py-4">
             @yield('content')
         </main>
     </div>
 </body>
+<script>
+    $('#flash-overlay-modal').modal();
+</script>
 </html>

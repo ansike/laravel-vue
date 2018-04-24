@@ -152,7 +152,7 @@ return [
          */
 
         Naux\Mail\SendCloudServiceProvider::class,
-
+        Laracasts\Flash\FlashServiceProvider::class,
         /*
          * Application Service Providers...
          */
